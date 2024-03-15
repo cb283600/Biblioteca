@@ -1,5 +1,4 @@
-﻿using LogicaNegocio.Excepciones.Pais;
-using LogicaNegocio.Excepciones.Tema;
+﻿using LogicaNegocio.Excepciones.Tema;
 using LogicaNegocio.IntefacesDominio;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,13 +10,13 @@ namespace LogicaNegocio.Entidades
 
 		public int Id { get; set; }
 		public string Nombre { get; set; }
-		public string Description { get; set; }
+		public string Descripcion { get; set; }
 
 		public void Validar()
 		{
 			ValidarId();
 			ValidarNombre();
-			ValidarDescription();
+			ValidarDescripcion();
 		}
 
 		public void ValidarId()
@@ -30,16 +29,16 @@ namespace LogicaNegocio.Entidades
 			if (string.IsNullOrEmpty(Nombre) || Nombre.Length <= 2) { throw new NombreInvalidaException(); }
 		}
 
-		private void ValidarDescription()
+		private void ValidarDescripcion()
 		{
-			if (string.IsNullOrEmpty(Description)) { throw new DescriptionInvalidaException(); }
+			if (string.IsNullOrEmpty(Descripcion)) { throw new DescripcionInvalidaException(); }
 		}
 
 		public void Update(Tema obj)
 		{
 			obj.Validar();
 			Nombre = obj.Nombre;
-			Description = obj.Description;
+			Descripcion = obj.Descripcion;
 		}
 
 	}

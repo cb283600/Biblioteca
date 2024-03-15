@@ -1,4 +1,4 @@
-﻿@model Dominio.Entidades.Tema
+﻿@model LogicaNegocio.Entidades.Tema
 
 @{
 	ViewData["Title"] = "AltaTema";
@@ -17,10 +17,10 @@
 				</div>
 			}
 
-			@if (ViewBag.Exito != null)
+			@if (ViewBag.Mensaje != null)
 			{
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					@ViewBag.Exito
+					@ViewBag.Mensaje
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			}
@@ -41,9 +41,9 @@
 				</div>
 
 				<div class="mb-3">
-					<label asp-for="Description" class="form-label"></label>
-					<input asp-for="Description" class="form-control" />
-					<span asp-validation-for="Description" class="text-danger"></span>
+					<label asp-for="Descripcion" class="form-label"></label>
+					<input asp-for="Descripcion" class="form-control" />
+					<span asp-validation-for="Descripcion" class="text-danger"></span>
 				</div>
 
 				<div class="input-group mb-3">

@@ -1,152 +1,171 @@
-﻿using Dominio.Entidades;
-using Dominio.Excepciones.Tema;
+﻿
+using AppWeb.Models;
+using LogicaAccesoDatos.Excepciones;
+using LogicaAccesoDatos.Listas;
+using LogicaNegocio.Entidades;
+using LogicaNegocio.Excepciones.Tema;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppWeb.Controllers
 {
-	public class TemaController : Controller
-	{
-		private static List<Tema> _tema = new List<Tema>();
+    public class TemaController : Controller
+    {
 
-		// GET: TemaController
-		public IActionResult Index(string mensaje)
-		{
-			ViewBag.Mensaje = mensaje;
-			ViewBag.ExitoMessage = TempData["ExitoMessage"];
-			ViewBag.ListaPaises = _tema;
-			return View(_tema);
-		}
+        RepositorioTema _repositorioTema = new RepositorioTema();
 
-		// GET: TemaController/Details/5
-		public IActionResult Details(int id)
-		{
-			var tema = _tema.FirstOrDefault(t => t.Id == id);
-			if (tema == null)
-			{
-				return NotFound();
-			}
-			return View(tema);
-		}
+        // GET: PaisController
+        public IActionResult Index(string mensaje)
+        {
+            ViewBag.Mensaje = mensaje;
+            return View(_repositorioTema.GetAll());
+        }
 
-		// GET: TemaController/Create
-		public IActionResult Create()
-		{
-			return View();
-		}
+        // GET: PaisController/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-		// POST: TemaController/Create
-		[HttpPost]
-		public IActionResult Create(Tema tema)
-		{
-			if (tema == null)
-			{
-				return NotFound();
-			}
+        // POST: PaisController/Create
+        [HttpPost]
+        public IActionResult Create(Tema tema)
+        {
+            try
+            {
+                _repositorioTema.Add(tema);
+                return RedirectToAction("Index", new { mensaje = "Se dio de alta el tema en forma exitosa." });
+            }
+            catch (NombreInvalidaException e)
+            {
+                ViewBag.Error = e.Message;
+            }
+            catch (DescripcionInvalidaException e)
+            {
+                ViewBag.Error = e.Message;
+            }
+            catch (ArgumentNullRepositorioException ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Hubo un error al crear el tema.Intente nuevamente.";
+            }
 
-			try
-			{
-				tema.Validar();
-				_tema.Add(tema);
-				TempData["ExitoMessage"] = "Se dio de alta un tema";
-				return RedirectToAction("Index");
-			}
-			catch (IdInvalidaException ex)
-			{
-				ViewBag.Error = ex.Message;
-			}
-			catch (DescriptionInvalidaException ex)
-			{
-				ViewBag.Error = ex.Message;
-			}
-			catch (ArgumentException ex)
-			{
-				ViewBag.Error = ex.Message;
-			}
-			catch (Exception ex)
-			{
-				ViewBag.Error = "Hubo un problema. Intenta nuevamente o llame a soporte";
-			}
-			ViewBag.ListaTemas = _tema;
-			return View(tema);
-		}
+            return View(tema);
+        }
 
-		// GET: TemaController/Edit/5
-		public IActionResult Edit(Tema unTema)
-		{
-			var tema = _tema.FirstOrDefault(p => p.Id == unTema.Id);
-			ViewBag.ListaTemas = _tema;
-			return View(tema);
-		}
+        // GET: PaisController/Edit/5
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            Tema tema = _repositorioTema.GetById(id);
+            if (tema == null)
+            {
+                return RedirectToAction("Index", new { mensaje = "No se encontró " + id });
+            }
+            return View(tema);
 
-		// POST: TemController/Edit/5
-		[HttpPost]
-		public IActionResult Edit(int id, Tema tema)
-		{
-			try
-			{
-				if (!ModelState.IsValid)
-				{
-					ViewBag.Error = "La información ingresada no es válida.";
-					return View(tema);
-				}
+        }
 
-				var existingTema = _tema.FirstOrDefault(t => t.Id == id);
-				if (existingTema == null)
-				{
-					return NotFound();
-				}
+        // POST: PaisController/Edit/5
+        [HttpPost]
+        public IActionResult Edit(int id, Tema tema)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.Error = "La información ingresada no es válida.";
+                    return View(tema);
+                }
+                _repositorioTema.Update(id, tema);
+                ViewBag.Mensaje = "Se editó el tema en forma exitosa.";
+                return RedirectToAction("Index", new { mensaje = "Se editó el tema en forma exitosa." });
+            }
+            catch (NombreInvalidaException e)
+            {
+                ViewBag.Error = e.Message;
+                return View(tema);
+            }
+            catch (DescripcionInvalidaException e)
+            {
+                ViewBag.Error = e.Message;
+                return View(tema);
+            }
+            catch (ArgumentNullRepositorioException e)
+            {
+                ViewBag.Error = e.Message;
+                return View(tema);
+            }
+            catch (NotFoundException e)
+            {
+                ViewBag.Error = e.Message;
+                return View(tema);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Hubo un error al editar el tema. Intente nuevamente.";
+                return RedirectToAction("Index", new { mensaje = ex.Message });
+            }
+        }
 
-				existingTema.Nombre = tema.Nombre;
-				existingTema.Description = tema.Description;
+        // GET: PaisController/Details/5
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                Tema tema = _repositorioTema.GetById(id);
+                if (tema == null)
+                {
+                    throw new Exception("No se encontro el id");
+                }
+                return View(tema);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", new { mensaje = "No se encontró " + id });
+            }
+        }
 
-				TempData["ExitoMessage"] = "Se actualizó el tema";
-				return RedirectToAction("Index");
-			}
-			catch (Exception ex)
-			{
-				ViewBag.Error = "Hubo un problema. Intenta nuevamente o llama a soporte: " + ex.Message;
-			}
+        // GET: PaisController/Delete/5
+        public IActionResult Delete(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            Tema tema = _repositorioTema.GetById(id);
+            if (tema == null)
+            {
+                return RedirectToAction("Index", new { mensaje = "No se encontró " + id });
+            }
+            return View(tema);
 
-			ViewBag.ListaTemas = _tema;
-			return View(tema);
-		}
+        }
 
-		// GET: TemaController/Delete/5
-		[HttpGet]
-		public IActionResult Delete(int id)
-		{
-			var temaToDelete = _tema.FirstOrDefault(p => p.Id == id);
-			if (temaToDelete == null)
-			{
-				return NotFound();
-			}
+        // POST: PaisController/Delete/5
+        [HttpPost]
+        public IActionResult Delete(Tema tema)
+        {
+            try
+            {
+                _repositorioTema.Delete(tema.Id);
+                return RedirectToAction("Index", new { mensaje = "Se dio de baja el tema en forma exitosa." });
+            }
+            catch (NotFoundException ex)
+            {
+                return RedirectToAction("Index", new { mensaje = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", new { mensaje = "No se puedo dar de baja. Intente nuevamente." });
+            }
 
-			return View(temaToDelete);
-		}
-
-		// POST: TemaController/Delete/5
-		[HttpPost]
-		public IActionResult Delete(Tema tema)
-		{
-			try
-			{
-				// Find the pais to delete
-				var temaToDelete = _tema.FirstOrDefault(p => p.Id == tema.Id);
-				if (temaToDelete == null)
-				{
-					throw new Exception("No se encontró el tema a eliminar");
-				}
-
-				// Delete the data and redirect to the index page
-				_tema.RemoveAll(p => p.Id == tema.Id);
-				TempData["ExitoMessage"] = "Se eliminó el tema";
-				return RedirectToAction("Index");
-			}
-			catch (Exception ex)
-			{
-				ViewBag.Error = ex.Message;
-				return RedirectToAction("Index");
-			}
-		}
-	}
+        }
+    }
 }
+

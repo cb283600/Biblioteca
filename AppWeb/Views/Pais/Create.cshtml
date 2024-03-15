@@ -1,4 +1,4 @@
-﻿@model Dominio.Entidades.Pais
+﻿@model LogicaNegocio.Entidades.Pais
 
 @{
 	ViewData["Title"] = "AltaPaís";
@@ -17,10 +17,10 @@
 				</div>
 			}
 
-			@if (ViewBag.Exito != null)
+			@if (ViewBag.Mensaje != null)
 			{
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					@ViewBag.Exito
+					@ViewBag.Mensaje
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			}

@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Dominio.Entidades.Pais>
+﻿@model IEnumerable<LogicaNegocio.Entidades.Pais>
 
 @{
 	ViewData["Title"] = "ListaPaises";
 }
 
-@if (TempData["ExitoMessage"] != null)
+@if (@ViewBag.Mensaje != null)
 {
 	<div class="alert alert-success alert-dismissible fade show" role="alert">
-	@TempData["ExitoMessage"]
+	@ViewBag.Mensaje
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 }
@@ -33,7 +33,7 @@ else
 				<th>Id</th>
 				<th>Nombre</th>
 				<th>CantHabitantes</th>
-				<th>Acciones</th>
+				<th class="text-end">Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -43,13 +43,13 @@ else
 							<td>@p.Id</td>
 							<td>@p.Nombre</td>
 							<td>@p.CantHabitantes</td>
-							<td>
-								<div class="btn-group d-grid gap-3 d-md-block text-end" role="group" aria-label="Actions">
-									<a asp-controller="Pais" asp-action="Edit" asp-route-id="@p.Id" class="btn btn-primary">Editar</a>
-									<a asp-controller="Pais" asp-action="Details" asp-route-id="@p.Id" class="btn btn-secondary">Detalles</a>
-									<a asp-controller="Pais" asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger">Eliminar</a>
-								</div>
-							</td>
+                            <td>
+                                <div class="btn-group d-grid gap-3 d-md-block text-end" role="group" aria-label="Actions">
+                                    <a asp-controller="Pais" asp-action="Edit" asp-route-id="@p.Id" class="btn btn-primary">Editar</a>
+                                    <a asp-controller="Pais" asp-action="Details" asp-route-id="@p.Id" class="btn btn-secondary">Detalles</a>
+                                    <a asp-controller="Pais" asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </td>
 						</tr>
 					}
 				</tbody>

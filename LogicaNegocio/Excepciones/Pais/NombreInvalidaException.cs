@@ -1,6 +1,4 @@
-﻿using LogicaNegocio.Excepciones.Pais;
-
-namespace LogicaNegocio.Excepciones.Pais
+﻿namespace LogicaNegocio.Excepciones.Pais
 {
 	public class NombreInvalidaException : PaisException
 	{

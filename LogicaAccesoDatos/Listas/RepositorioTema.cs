@@ -59,23 +59,8 @@ namespace LogicaAccesoDatos.Listas
             {
                 throw new NotFoundException();
             }
-            tema.Update(obj);        
-            throw new NotImplementedException();
+            tema.Update(obj);
         }
-
-
-
-        //public Tema? BuscarPorNombre(string? nombre)
-        //{
-        //    foreach (var item in _temas)
-        //    {
-        //        if (item.Nombre == nombre)
-        //        {
-        //            return item;
-        //        }
-        //    }
-        //    return null;
-        //}
 
     }
 }

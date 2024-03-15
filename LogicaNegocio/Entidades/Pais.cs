@@ -7,7 +7,7 @@ namespace LogicaNegocio.Entidades
 	public class Pais : IValidable, IEntity
 	{
 		public int Id { get; set; }
-		public string? Nombre { get; set; }
+		public string Nombre { get; set; }
 		public int CantHabitantes { get; set; }
 
 		public Pais()
@@ -23,26 +23,17 @@ namespace LogicaNegocio.Entidades
 
 		private void ValidarId()
 		{
-			if (Id <= 0)
-			{
-				throw new IdInvalidaException();
-			}
+			if (Id <= 0) { throw new IdInvalidaException(); }
 		}
 
 		private void ValidarNombre()
 		{
-			if (string.IsNullOrEmpty(Nombre) || Nombre.Length <= 2)
-			{
-				throw new NombreInvalidaException();
-			}
+			if (string.IsNullOrEmpty(Nombre) || Nombre.Length <= 2) { throw new NombreInvalidaException();}
 		}
 
 		private void ValidarCantHabitantes()
 		{
-			if (CantHabitantes <= 0)
-			{
-				throw new CantHabitantesInvalidaException();
-			}
+			if (CantHabitantes <= 0) { throw new CantHabitantesInvalidaException(); }
 		}
 
 		public void Update(Pais obj)
