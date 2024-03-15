@@ -1,0 +1,50 @@
+﻿@model Dominio.Entidades.Tema
+
+@{
+	ViewData["Title"] = "Details";
+}
+
+<div class="container mt-5">
+	<h1 class="text-center">Detalles</h1>
+
+	@if (ViewBag.Error != null)
+	{
+		<div class="alert alert-danger" role="alert">
+			@ViewBag.Error
+		</div>
+	}
+
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title">Tema</h4>
+			<hr />
+
+			<form asp-action="Details">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+				<div class="mb-3">
+					<label asp-for="Id" class="form-label">ID</label>
+					<input asp-for="Id" class="form-control" readonly />
+					<span asp-validation-for="Id" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="Nombre" class="form-label">Nombre</label>
+					<input asp-for="Nombre" class="form-control" readonly />
+					<span asp-validation-for="Nombre" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="Description" class="form-label">Descripción</label>
+					<input asp-for="Description" class="form-control" readonly />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+
+				<div class="mt-3">
+					<a asp-controller="Tema" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+					<a asp-action="Index" class="btn btn-secondary">Volver al Listado</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

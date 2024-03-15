@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Dominio.Entidades.Pais>
+
+@{
+	ViewData["Title"] = "ListaPaises";
+}
+
+@if (TempData["ExitoMessage"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+	@TempData["ExitoMessage"]
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+}
+@if (ViewBag.Error != null)
+{
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	@ViewBag.Error
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+}
+else
+{
+	@if (Model == null || !Model.Any())
+	{
+		<p>No se encontraron países</p>
+	}
+	else
+	{
+		<div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>CantHabitantes</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var p in Model)
+					{
+						<tr>
+							<td>@p.Id</td>
+							<td>@p.Nombre</td>
+							<td>@p.CantHabitantes</td>
+							<td>
+								<div class="btn-group d-grid gap-3 d-md-block text-end" role="group" aria-label="Actions">
+									<a asp-controller="Pais" asp-action="Edit" asp-route-id="@p.Id" class="btn btn-primary">Editar</a>
+									<a asp-controller="Pais" asp-action="Details" asp-route-id="@p.Id" class="btn btn-secondary">Detalles</a>
+									<a asp-controller="Pais" asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger">Eliminar</a>
+								</div>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	}
+
+	<div class="text-end">
+	<a asp-controller="Pais" asp-action="Create" class="btn btn-primary">Agregar país</a>
+</div>
+}

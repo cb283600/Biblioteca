@@ -1,0 +1,60 @@
+﻿@model Dominio.Entidades.Tema
+
+@{
+	ViewData["Title"] = "AltaTema";
+}
+
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<h2 class="text-center">Alta Tema</h2>
+
+			@if (ViewBag.Error != null)
+			{
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					@ViewBag.Error
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			}
+
+			@if (ViewBag.Exito != null)
+			{
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					@ViewBag.Exito
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			}
+
+			<form asp-action="Create">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+				<div class="mb-3">
+					<label asp-for="Id" class="form-label"></label>
+					<input asp-for="Id" class="form-control" />
+					<span asp-validation-for="Id" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="Nombre" class="form-label"></label>
+					<input asp-for="Nombre" class="form-control" />
+					<span asp-validation-for="Nombre" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="Description" class="form-label"></label>
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="btn btn-sm mt-3">
+						<input type="submit" value="Alta Tema" class="btn btn-success btn-md" asp-action="Create" />
+					</div>
+					<div class="btn btn-sm mt-3">
+						<input type="submit" value="Volver" class="btn btn-secondary btn-md" asp-action="Index" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

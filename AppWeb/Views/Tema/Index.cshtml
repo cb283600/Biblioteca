@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Dominio.Entidades.Tema>
+
+@{
+    ViewData["Title"] = "ListaTemas";
+}
+
+@if (TempData["ExitoMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["ExitoMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @ViewBag.Error
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+else
+{
+    @if (Model == null || !Model.Any())
+    {
+        <p>No se encontraron temas</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        <tr>
+                            <td>@p.Id</td>
+                            <td>@p.Nombre</td>
+                            <td>@p.Description</td>
+                            <td>
+                                <div class="btn-group d-grid gap-3 d-md-block text-end" role="group" aria-label="Actions">
+                                    <a asp-controller="Tema" asp-action="Edit" asp-route-id="@p.Id" class="btn btn-primary">Editar</a>
+                                    <a asp-controller="Tema" asp-action="Details" asp-route-id="@p.Id" class="btn btn-secondary">Detalles</a>
+                                    <a asp-controller="Tema" asp-action="DeleteConfirmation" asp-route-id="@p.Id" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div class="text-end">
+        <a asp-controller="Tema" asp-action="Create" class="btn btn-primary">Agregar tema</a>
+    </div>
+}

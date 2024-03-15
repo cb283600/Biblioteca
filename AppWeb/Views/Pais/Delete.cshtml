@@ -1,0 +1,41 @@
+﻿@model Dominio.Entidades.Pais
+
+@{
+	ViewData["Title"] = "Confirmar Eliminación";
+}
+
+<h2 class="text-center">Confirmar Eliminación</h2>
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-sm-6">
+			<p class="text-center">¿Está seguro de que desea eliminar el país con el siguiente detalle?</p>
+
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre</th>
+							<th>CantHabitantes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>@Model.Id</td>
+							<td>@Model.Nombre</td>
+							<td>@Model.CantHabitantes</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="text-center">
+				<div class="form-group">
+					<input type="submit" value="Confirmar Eliminación" class="btn btn-danger" />
+					<a asp-controller="Pais" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
