@@ -1,0 +1,11 @@
+{
+	"profiles": {
+		"AppWeb": {
+			"commandName": "Executable",
+			"executablePath": "dotnet",
+			"commandLineArgs": "watch run",
+			"workingDirectory": "${workspaceFolder}/AppWeb",
+			"launchBrowser": true
+		}
+	}
+}
