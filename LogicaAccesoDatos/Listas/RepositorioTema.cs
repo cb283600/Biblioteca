@@ -5,11 +5,11 @@ using LogicaNegocio.InterfazRepositorio;
 
 namespace LogicaAccesoDatos.Listas
 {
-    public class RepositorioTema: IRepositorioTema
+    public class RepositorioTema : IRepositorioTema
     {
         private static List<Tema> _temas = new List<Tema>();
 
-       
+
         public void Add(Tema obj)
         {
             if (obj == null)

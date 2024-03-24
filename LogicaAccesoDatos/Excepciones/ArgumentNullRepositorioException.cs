@@ -8,7 +8,9 @@ namespace LogicaAccesoDatos.Excepciones
 {
     public class ArgumentNullRepositorioException : RepositorioException
     {
-        public ArgumentNullRepositorioException(): base("No se recibio informaciòn vàlida.") { }
+        public ArgumentNullRepositorioException(): base("No se recibio información válida.") { }
+
+        public ArgumentNullRepositorioException(string message) : base(message) { }
 
     }
 }

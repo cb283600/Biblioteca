@@ -31,6 +31,11 @@ namespace AppWeb.Controllers
         {
             try
             {
+                Tema _tema = _repositorioTema.GetById(tema.Id); // Busca si existe el tema por ID en la lista
+                if (_tema != null)
+                {
+                    throw new IdInvalidaException();
+                }
                 _repositorioTema.Add(tema);
                 return RedirectToAction("Index", new { mensaje = "Se dio de alta el tema en forma exitosa." });
             }
@@ -80,11 +85,6 @@ namespace AppWeb.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    ViewBag.Error = "La información ingresada no es válida.";
-                    return View(tema);
-                }
                 _repositorioTema.Update(id, tema);
                 ViewBag.Mensaje = "Se editó el tema en forma exitosa.";
                 return RedirectToAction("Index", new { mensaje = "Se editó el tema en forma exitosa." });

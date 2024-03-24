@@ -51,6 +51,11 @@ namespace AppWeb.Controllers
         {
             try
             {
+                Pais _pais = _repositorioPais.GetById(pais.Id); // Busca si existe el pais por ID en la lista
+                if (_pais != null)
+                {
+                    throw new IdInvalidaException();
+                }
                 _repositorioPais.Add(pais);
                 return RedirectToAction("Index", new { mensaje = "Se dio de alta el pais en forma exitosa." });
             }

@@ -8,7 +8,7 @@ namespace LogicaAccesoDatos.Excepciones
 {
     public class NotFoundException : RepositorioException
     {
-        public NotFoundException(): base("No se encontrò la informaciòn solicitada.") { }
+        public NotFoundException(): base("No se encontró la información solicitada.") { }
 
     }
 }
