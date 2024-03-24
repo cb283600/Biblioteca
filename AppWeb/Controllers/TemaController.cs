@@ -1,5 +1,4 @@
-﻿
-using AppWeb.Models;
+﻿using AppWeb.Models;
 using LogicaAccesoDatos.Excepciones;
 using LogicaAccesoDatos.Listas;
 using LogicaNegocio.Entidades;
@@ -34,6 +33,10 @@ namespace AppWeb.Controllers
             {
                 _repositorioTema.Add(tema);
                 return RedirectToAction("Index", new { mensaje = "Se dio de alta el tema en forma exitosa." });
+            }
+            catch (IdInvalidaException e)
+            {
+                ViewBag.Error = e.Message;
             }
             catch (NombreInvalidaException e)
             {

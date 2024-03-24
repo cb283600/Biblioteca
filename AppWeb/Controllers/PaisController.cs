@@ -54,6 +54,10 @@ namespace AppWeb.Controllers
                 _repositorioPais.Add(pais);
                 return RedirectToAction("Index", new { mensaje = "Se dio de alta el pais en forma exitosa." });
             }
+            catch (IdInvalidaException e)
+            {
+                ViewBag.Error = e.Message;
+            }
             catch (NombreInvalidaException e)
             {
                 ViewBag.Error = e.Message;

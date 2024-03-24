@@ -2,7 +2,7 @@
 {
 	public class DescripcionInvalidaException : TemaException
 	{
-		public DescripcionInvalidaException() { }
+		public DescripcionInvalidaException() : base("La descripcion debe ser valida") { }
 		public DescripcionInvalidaException(string message) : base("La descripcion debe ser valida") { }
 	}
 }
