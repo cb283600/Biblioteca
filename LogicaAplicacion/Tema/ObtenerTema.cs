@@ -1,17 +1,18 @@
-﻿using LogicaAccesoDatos.Listas;
-using LogicaNegocio.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfazRepositorio;
+using LogicaNegocio.InterfazServicios;
 
 namespace LogicaAplicacion.Temas
 {
-    public class ObtenerTema
+    public class ObtenerTema : IObtener<Tema>
     {
-        RepositorioTema _repositorioTema = new RepositorioTema();
+        IRepositorioTema _repositorioTema;
 
+        // Dependency Injection (DI) constructor
+        public ObtenerTema(IRepositorioTema repositorioTema)
+        {
+            _repositorioTema = repositorioTema;
+        }
 
         public Tema Ejecutar(int id)
         {

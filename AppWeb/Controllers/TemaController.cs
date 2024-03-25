@@ -1,9 +1,7 @@
-﻿using AppWeb.Models;
-using LogicaAccesoDatos.Excepciones;
-using LogicaAccesoDatos.Listas;
-using LogicaAplicacion.Temas;
+﻿using LogicaAccesoDatos.Excepciones;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Excepciones.Tema;
+using LogicaNegocio.InterfazServicios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppWeb.Controllers
@@ -11,11 +9,25 @@ namespace AppWeb.Controllers
     public class TemaController : Controller
     {
 
-        AltaTema _altaTema = new AltaTema();
-        EditarTema _editarTema = new EditarTema();
-        EliminarTema _eliminarTema = new EliminarTema();
-        ObtenerTema _obtenerTema = new ObtenerTema();
-        ObtenerTemas _obtenerTemas = new ObtenerTemas();
+        IAlta<Tema> _altaTema;
+        IEditar<Tema> _editarTema;
+        IEliminar<Tema> _eliminarTema;
+        IObtener<Tema> _obtenerTema;
+        IObtenerTodos<Tema> _obtenerTemas;
+
+        public TemaController(
+            IAlta<Tema> altaTema,
+            IEditar<Tema> editarTema,
+            IEliminar<Tema> eliminarTema,
+            IObtener<Tema> obtenerTema,
+            IObtenerTodos<Tema> obtenerTemas)
+        {
+            _altaTema = altaTema;
+            _editarTema = editarTema;
+            _eliminarTema = eliminarTema;
+            _obtenerTema = obtenerTema;
+            _obtenerTemas = obtenerTemas;
+        }
 
         // GET: PaisController
         public IActionResult Index(string mensaje)

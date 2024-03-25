@@ -1,3 +1,10 @@
+using LogicaAccesoDatos.Listas;
+using LogicaAplicacion.Paises;
+using LogicaAplicacion.Temas;
+using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfazRepositorio;
+using LogicaNegocio.InterfazServicios;
+
 namespace AppWeb
 {
     public class Program
@@ -8,6 +15,22 @@ namespace AppWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Dependency Injection (DI) configuration for the repository classes in the LogicAccessData project
+            builder.Services.AddScoped<IRepositorioTema, RepositorioTema>();
+            builder.Services.AddScoped<IAlta<Tema>, AltaTema>();
+            builder.Services.AddScoped<IEditar<Tema>, EditarTema>();
+            builder.Services.AddScoped<IEliminar<Tema>, EliminarTema>();
+            builder.Services.AddScoped<IObtener<Tema>, ObtenerTema>();
+            builder.Services.AddScoped<IObtenerTodos<Tema>, ObtenerTemas>();
+
+            builder.Services.AddScoped<IRepositorioPais, RepositorioPais>();
+            builder.Services.AddScoped<IAlta<Pais>, AltaPais>();
+            builder.Services.AddScoped<IEditar<Pais>, EditarPais>();
+            builder.Services.AddScoped<IEliminar<Pais>, EliminarPais>();
+            builder.Services.AddScoped<IObtener<Pais>, ObtenerPais>();
+            builder.Services.AddScoped<IObtenerTodos<Pais>, ObtenerPaises>();
+
 
             var app = builder.Build();
 

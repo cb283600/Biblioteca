@@ -1,17 +1,18 @@
-﻿using LogicaAccesoDatos.Listas;
-using LogicaNegocio.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfazRepositorio;
+using LogicaNegocio.InterfazServicios;
 
 namespace LogicaAplicacion.Paises
 {
-    public class ObtenerPaises
+    public class ObtenerPaises : IObtenerTodos<Pais>
     {
-        RepositorioPais _repositorioPais = new RepositorioPais();
+        IRepositorioPais _repositorioPais;
 
+        // Dependency Injection (DI) constructor
+        public ObtenerPaises(IRepositorioPais repositorioPais)
+        {
+            _repositorioPais = repositorioPais;
+        }
 
         public IEnumerable<Pais> Ejecutar()
         {

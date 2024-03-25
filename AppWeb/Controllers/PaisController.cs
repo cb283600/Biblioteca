@@ -1,22 +1,32 @@
 ﻿using LogicaAccesoDatos.Excepciones;
-using LogicaAccesoDatos.Listas;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Excepciones.Pais;
+using LogicaNegocio.InterfazServicios;
 using Microsoft.AspNetCore.Mvc;
-using AppWeb.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using LogicaNegocio.InterfazRepositorio;
-using LogicaAplicacion.Paises;
 
 namespace AppWeb.Controllers
 {
     public class PaisController : Controller
     {
-        AltaPais _altaPais = new AltaPais();
-        EditarPais _editarPais = new EditarPais();
-        EliminarPais _eliminarPais = new EliminarPais();
-        ObtenerPais _obtenerPais = new ObtenerPais();
-        ObtenerPaises _obtenerPaises = new ObtenerPaises();
+        IAlta<Pais> _altaPais;
+        IEditar<Pais> _editarPais;
+        IEliminar<Pais> _eliminarPais;
+        IObtener<Pais> _obtenerPais;
+        IObtenerTodos<Pais> _obtenerPaises;
+
+        public PaisController(
+            IAlta<Pais> altaPais,
+            IEditar<Pais> editarPais,
+            IEliminar<Pais> eliminarPais,
+            IObtener<Pais> obtenerPais,
+            IObtenerTodos<Pais> obtenerPaises)
+        {
+            _altaPais = altaPais;
+            _editarPais = editarPais;
+            _eliminarPais = eliminarPais;
+            _obtenerPais = obtenerPais;
+            _obtenerPaises = obtenerPaises;
+        }
 
         // GET: PaisController
         public IActionResult Index(string mensaje)

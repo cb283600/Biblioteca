@@ -1,17 +1,18 @@
-﻿using LogicaAccesoDatos.Listas;
-using LogicaNegocio.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfazRepositorio;
+using LogicaNegocio.InterfazServicios;
 
 namespace LogicaAplicacion.Paises
 {
-    public class AltaPais
+    public class AltaPais : IAlta<Pais>
     {
-        RepositorioPais _repositorioPais = new RepositorioPais();
+        IRepositorioPais _repositorioPais;
 
+        // Dependency Injection (DI) constructor
+        public AltaPais(IRepositorioPais repositorioPais)
+        {
+            _repositorioPais = repositorioPais;
+        }
 
         public void Ejecutar(Pais pais)
         {
