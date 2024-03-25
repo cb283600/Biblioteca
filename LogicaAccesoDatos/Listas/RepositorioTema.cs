@@ -1,6 +1,7 @@
 ﻿
 using LogicaAccesoDatos.Excepciones;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.Excepciones.Tema;
 using LogicaNegocio.InterfazRepositorio;
 
 namespace LogicaAccesoDatos.Listas
@@ -16,6 +17,17 @@ namespace LogicaAccesoDatos.Listas
             {
                 throw new ArgumentNullRepositorioException();
             }
+
+            if (_temas.Any(p => p.Id == obj.Id))
+            {
+                throw new IdInvalidaException();
+            }
+
+            if (_temas.Any(p => p.Nombre == obj.Nombre))
+            {
+                throw new NombreInvalidaException();
+            }
+
             obj.Validar();
             _temas.Add(obj);
         }

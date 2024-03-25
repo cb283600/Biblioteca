@@ -1,6 +1,7 @@
 ﻿
 using LogicaAccesoDatos.Excepciones;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.Excepciones.Pais;
 using LogicaNegocio.InterfazRepositorio;
 
 namespace LogicaAccesoDatos.Listas
@@ -14,6 +15,15 @@ namespace LogicaAccesoDatos.Listas
             if (obj == null)
             {
                 throw new ArgumentNullRepositorioException();
+            }
+            if (_pais.Any(p => p.Id == obj.Id))
+            {
+                throw new IdInvalidaException();
+            }
+
+            if (_pais.Any(p => p.Nombre == obj.Nombre))
+            {
+                throw new NombreInvalidaException();
             }
             obj.Validar();
             _pais.Add(obj);

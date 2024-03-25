@@ -1,6 +1,7 @@
 ﻿using AppWeb.Models;
 using LogicaAccesoDatos.Excepciones;
 using LogicaAccesoDatos.Listas;
+using LogicaAplicacion.Temas;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Excepciones.Tema;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +11,17 @@ namespace AppWeb.Controllers
     public class TemaController : Controller
     {
 
-        RepositorioTema _repositorioTema = new RepositorioTema();
+        AltaTema _altaTema = new AltaTema();
+        EditarTema _editarTema = new EditarTema();
+        EliminarTema _eliminarTema = new EliminarTema();
+        ObtenerTema _obtenerTema = new ObtenerTema();
+        ObtenerTemas _obtenerTemas = new ObtenerTemas();
 
         // GET: PaisController
         public IActionResult Index(string mensaje)
         {
             ViewBag.Mensaje = mensaje;
-            return View(_repositorioTema.GetAll());
+            return View(_obtenerTemas.Ejecutar());
         }
 
         // GET: PaisController/Create
@@ -31,12 +36,7 @@ namespace AppWeb.Controllers
         {
             try
             {
-                Tema _tema = _repositorioTema.GetById(tema.Id); // Busca si existe el tema por ID en la lista
-                if (_tema != null)
-                {
-                    throw new IdInvalidaException();
-                }
-                _repositorioTema.Add(tema);
+                _altaTema.Ejecutar(tema);
                 return RedirectToAction("Index", new { mensaje = "Se dio de alta el tema en forma exitosa." });
             }
             catch (IdInvalidaException e)
@@ -70,7 +70,7 @@ namespace AppWeb.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Tema tema = _repositorioTema.GetById(id);
+            Tema tema = _obtenerTema.Ejecutar(id);
             if (tema == null)
             {
                 return RedirectToAction("Index", new { mensaje = "No se encontró " + id });
@@ -85,7 +85,7 @@ namespace AppWeb.Controllers
         {
             try
             {
-                _repositorioTema.Update(id, tema);
+                _editarTema.Ejecutar(id, tema);
                 ViewBag.Mensaje = "Se editó el tema en forma exitosa.";
                 return RedirectToAction("Index", new { mensaje = "Se editó el tema en forma exitosa." });
             }
@@ -121,7 +121,7 @@ namespace AppWeb.Controllers
         {
             try
             {
-                Tema tema = _repositorioTema.GetById(id);
+                Tema tema = _obtenerTema.Ejecutar(id);
                 if (tema == null)
                 {
                     throw new Exception("No se encontro el id");
@@ -141,7 +141,7 @@ namespace AppWeb.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Tema tema = _repositorioTema.GetById(id);
+            Tema tema = _obtenerTema.Ejecutar(id);
             if (tema == null)
             {
                 return RedirectToAction("Index", new { mensaje = "No se encontró " + id });
@@ -156,7 +156,7 @@ namespace AppWeb.Controllers
         {
             try
             {
-                _repositorioTema.Delete(tema.Id);
+                _eliminarTema.Ejecutar(tema.Id);
                 return RedirectToAction("Index", new { mensaje = "Se dio de baja el tema en forma exitosa." });
             }
             catch (NotFoundException ex)

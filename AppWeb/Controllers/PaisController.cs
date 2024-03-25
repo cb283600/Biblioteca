@@ -6,18 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using AppWeb.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using LogicaNegocio.InterfazRepositorio;
+using LogicaAplicacion.Paises;
 
 namespace AppWeb.Controllers
 {
     public class PaisController : Controller
     {
-        RepositorioPais _repositorioPais = new RepositorioPais();
+        AltaPais _altaPais = new AltaPais();
+        EditarPais _editarPais = new EditarPais();
+        EliminarPais _eliminarPais = new EliminarPais();
+        ObtenerPais _obtenerPais = new ObtenerPais();
+        ObtenerPaises _obtenerPaises = new ObtenerPaises();
 
         // GET: PaisController
         public IActionResult Index(string mensaje)
         {
             ViewBag.Mensaje = mensaje;
-            return View(_repositorioPais.GetAll());
+            return View(_obtenerPaises.Ejecutar());
         }
 
         // GET: PaisController/Details/5
@@ -25,7 +30,7 @@ namespace AppWeb.Controllers
         {
             try
             {
-                Pais pais = _repositorioPais.GetById(id);
+                Pais pais = _obtenerPais.Ejecutar(id);
                 if (pais == null)
                 {
                     throw new Exception("No se encontró el ID");
@@ -51,12 +56,7 @@ namespace AppWeb.Controllers
         {
             try
             {
-                Pais _pais = _repositorioPais.GetById(pais.Id); // Busca si existe el pais por ID en la lista
-                if (_pais != null)
-                {
-                    throw new IdInvalidaException();
-                }
-                _repositorioPais.Add(pais);
+                _altaPais.Ejecutar(pais);
                 return RedirectToAction("Index", new { mensaje = "Se dio de alta el pais en forma exitosa." });
             }
             catch (IdInvalidaException e)
@@ -90,7 +90,7 @@ namespace AppWeb.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Pais pais = _repositorioPais.GetById(id);
+            Pais pais = _obtenerPais.Ejecutar(id);
             if (pais == null)
             {
                 return RedirectToAction("Index", new { mensaje = "No se encontró " + id });
@@ -109,7 +109,7 @@ namespace AppWeb.Controllers
                     ViewBag.Error = "La información ingresada no es válida.";
                     return View(pais);
                 }
-                _repositorioPais.Update(id, pais);
+                _editarPais.Ejecutar(id, pais);
                 return RedirectToAction("Index", new { mensaje = "Se editó el pais en forma exitosa." });
             }
             catch (NombreInvalidaException e)
@@ -141,7 +141,7 @@ namespace AppWeb.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Pais pais = _repositorioPais.GetById(id);
+            Pais pais = _obtenerPais.Ejecutar(id);
             if (pais == null)
             {
                 return RedirectToAction("Index", new { mensaje = "No se encontró " + id });
@@ -155,7 +155,7 @@ namespace AppWeb.Controllers
         {
             try
             {
-                _repositorioPais.Delete(pais.Id);
+                _eliminarPais.Ejecutar(pais.Id);
                 return RedirectToAction("Index", new { mensaje = "Se dio de baja el pais en forma exitosa." });
             }
             catch (NotFoundException e)

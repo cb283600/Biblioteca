@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LogicaNegocio.Entidades
 {
-	public class Tema : IValidable
+	public class Tema : IValidable, IEntity
 	{
 		public Tema() { }
 
