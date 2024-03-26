@@ -1,8 +1,9 @@
-﻿using LogicaAccesoDatos.Excepciones;
+﻿using Infraestructura.Datos.Excepciones;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Excepciones.Pais;
 using LogicaNegocio.InterfazServicios;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppWeb.Controllers
 {

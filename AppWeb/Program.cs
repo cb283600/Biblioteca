@@ -1,4 +1,5 @@
-using LogicaAccesoDatos.Listas;
+// using Infraestructura.Datos.Listas;
+using Infraestructura.Datos.EF;
 using LogicaAplicacion.Paises;
 using LogicaAplicacion.Temas;
 using LogicaNegocio.Entidades;
@@ -17,7 +18,11 @@ namespace AppWeb
             builder.Services.AddControllersWithViews();
 
             // Dependency Injection (DI) configuration for the repository classes in the LogicAccessData project
+
+            // Repositories for the entities in the LogicAccessData project
             builder.Services.AddScoped<IRepositorioTema, RepositorioTema>();
+
+            // Services for the entities in the LogicAccessData project (CRUD operations) / casos de uso
             builder.Services.AddScoped<IAlta<Tema>, AltaTema>();
             builder.Services.AddScoped<IEditar<Tema>, EditarTema>();
             builder.Services.AddScoped<IEliminar<Tema>, EliminarTema>();
@@ -31,6 +36,8 @@ namespace AppWeb
             builder.Services.AddScoped<IObtener<Pais>, ObtenerPais>();
             builder.Services.AddScoped<IObtenerTodos<Pais>, ObtenerPaises>();
 
+            // Add the context to the container to be able to interact with the database using EF
+            builder.Services.AddDbContext<BibliotecaContext>();
 
             var app = builder.Build();
 

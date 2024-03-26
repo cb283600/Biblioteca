@@ -1,52 +1,54 @@
-﻿
-using LogicaAccesoDatos.Excepciones;
+﻿using Infraestructura.Datos.Excepciones;
 using LogicaNegocio.Entidades;
-using LogicaNegocio.Excepciones.Pais;
+using LogicaNegocio.Excepciones.Tema;
 using LogicaNegocio.InterfazRepositorio;
 
-namespace LogicaAccesoDatos.Listas
+namespace Infraestructura.Datos.Listas
 {
-    public class RepositorioPais : IRepositorioPais
+    public class RepositorioTema : IRepositorioTema
     {
-        private static List<Pais> _pais = new List<Pais>();
+        private static List<Tema> _temas = new List<Tema>();
 
-        public void Add(Pais obj)
+
+        public void Add(Tema obj)
         {
             if (obj == null)
             {
                 throw new ArgumentNullRepositorioException();
             }
-            if (_pais.Any(p => p.Id == obj.Id))
+
+            if (_temas.Any(t => t.Id == obj.Id))
             {
                 throw new IdInvalidaException();
             }
 
-            if (_pais.Any(p => p.Nombre == obj.Nombre))
+            if (_temas.Any(t => t.Nombre == obj.Nombre))
             {
                 throw new NombreInvalidaException();
             }
+
             obj.Validar();
-            _pais.Add(obj);
+            _temas.Add(obj);
         }
 
         public void Delete(int id)
         {
-            Pais pais = GetById(id);
-            if (pais == null)
+            Tema tema = GetById(id);
+            if (tema == null)
             {
                 throw new NotFoundException();
             }
-            _pais.Remove(pais);
+            _temas.Remove(tema);
         }
 
-        public IEnumerable<Pais> GetAll()
+        public IEnumerable<Tema> GetAll()
         {
-            return _pais;
+            return _temas;
         }
 
-        public Pais GetById(int id)
+        public Tema GetById(int id)
         {
-            foreach (var item in _pais)
+            foreach (var item in _temas)
             {
                 if (item.Id == id)
                 {
@@ -56,19 +58,20 @@ namespace LogicaAccesoDatos.Listas
             return null;
         }
 
-        public IEnumerable<Pais> GetByName(string name)
+        public IEnumerable<Tema> GetByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(int id, Pais obj)
+        public void Update(int id, Tema obj)
         {
-            Pais pais = GetById(id);
-            if (pais == null)
+            Tema tema = GetById(id);
+            if (tema == null)
             {
                 throw new NotFoundException();
             }
-            pais.Update(obj);
+            tema.Update(obj);
         }
+
     }
 }

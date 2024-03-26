@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppWeb", "AppWeb\AppWeb.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaNegocio", "LogicaNegocio\LogicaNegocio.csproj", "{3BC12510-AB44-4286-BD33-C46AAA0EF536}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaAccesoDatos", "LogicaAccesoDatos\LogicaAccesoDatos.csproj", "{AA78A65F-396E-42E1-BB7B-2C1B0B3E5C9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraestructura", "LogicaAccesoDatos\Infraestructura.csproj", "{AA78A65F-396E-42E1-BB7B-2C1B0B3E5C9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaAplicacion", "LogicaAplicacion\LogicaAplicacion.csproj", "{E47CF087-29D3-4F31-B2B4-93E0E45A2A48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaAplicacion", "LogicaAplicacion\LogicaAplicacion.csproj", "{E47CF087-29D3-4F31-B2B4-93E0E45A2A48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

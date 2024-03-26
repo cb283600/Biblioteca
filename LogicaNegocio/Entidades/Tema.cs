@@ -14,7 +14,7 @@ namespace LogicaNegocio.Entidades
 
 		public void Validar()
 		{
-			ValidarId();
+			// ValidarId();
 			ValidarNombre();
 			ValidarDescripcion();
 		}
